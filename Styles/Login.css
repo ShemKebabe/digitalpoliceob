@@ -1,0 +1,74 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+html, body{
+    height: 100%;
+}
+body {
+    background-image: url('../Images/KPS-BG.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+.login-page{
+    background-color: #fff;
+    width: 400px;
+    border-radius: 8px;
+}
+.app-name{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.app-work {
+    color: #606972;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.title{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.input-box{
+    width: 370px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.input-box:focus {
+   border: 2px solid #2C5E2B;
+}
+.login-button {
+    width: 370px;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: #FCB512;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.15s ease;
+}
+.login-button:hover {
+    opacity: 0.9;
+}
+.message {
+    color: #606972;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+.report-link {
+    color: #FCB512;
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+.report-link:hover{
+    text-decoration: underline;
+}
