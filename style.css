@@ -1,0 +1,12 @@
+.bg-photo{
+    position:fixed;
+    inset:0;
+    background-image:url("loginbgimage.png");
+    background-size:cover;
+    background-position:center;
+    z-index:-2;
+
+}
+.bg-tint{
+background: rgba(0,0,0,0.5);
+}
