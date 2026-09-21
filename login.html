@@ -2,12 +2,16 @@
 <head>
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
 <title>Kenya Police Service | Secure Sign In</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
     <!--background image and tint-->
   <div class="bg-photo" role="presentation" aria-hidden="true"></div>
   <div class="bg-tint" aria-hidden="true"></div>
@@ -16,7 +20,9 @@
     <div class="login-card">
       <div class="brand-header">
         <div class="shield-logo">
-          <i class="fas fa-shield-alt"></i>
+        <span class="material-symbols-outlined">
+local_police
+</span>
         </div>
         <h2>Kenya Police Service</h2>
         <p class="subtitle">Utumishi kwa wote</p>
@@ -25,16 +31,16 @@
         <div class="input-group">
           <label for="serviceNumber">AP Number / Service Number</label>
                     <div class="input-field">
-                        <i class="fas fa-user"></i>
+                         <span class="material-symbols-outlined">account_circle</span>
                         <input type="text" id="serviceNumber" placeholder="e.g. AP001" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
                     <div class="input-field">
-                        <i class="fas fa-lock"></i>
+                      <span class="material-symbols-outlined">lock</span>
                         <input type="password" id="password" placeholder="Enter password" required>
-                        <i class="fas fa-eye" id="togglePassword"></i>
+                        <span class="material-symbols-outlined">password</span>
                     </div>
                 </div>
 
