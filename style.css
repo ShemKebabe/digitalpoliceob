@@ -1,3 +1,11 @@
+*{
+    font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
 .bg-photo{
     position:fixed;
     inset:0;
@@ -9,4 +17,180 @@
 }
 .bg-tint{
 background: rgba(0,0,0,0.5);
+}
+.login-container {
+    width: 100%;
+    padding: 10px;
+    margin-top:140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+}
+
+.brand-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.shield-logo {
+    width: 65px;
+    height: 65px;
+    background-color: #798881;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 16px auto;
+    color: #ffb803;
+    font-size: 28px;
+    box-shadow: 0 4px 10px rgba(45, 106, 79, 0.3);
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+
+.login-card h2 {
+    font-size: 24px;
+    color: #111;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-field span.material-symbols-outlined {
+    position: absolute;
+    left: 14px;
+    color: #888;
+    font-size: 15px;
+    pointer-events:none;
+}
+.input-field span#togglePassword {
+  left: auto;
+  right: 14px;
+  cursor: pointer;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 12px 14px 12px 46px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-field input:focus {
+    border-color: #2d6a4f;
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+
+/* Password toggle icon placement */
+.input-field input[type="password"] ~ .fa-eye,
+.input-field input[type="text"] ~ .fa-eye {
+    position: absolute;
+    right: 14px;
+    left: auto;
+    color: #888;
+    cursor: pointer;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 13px;
+    background: #fbbf24;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background: #f59e0b;
+}
+
+.error-msg {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.card-footer {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 20px;
+}
+
+.auth-notice {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.public-link {
+    font-size: 13px;
+    color: #d97706;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.public-link:hover {
+    text-decoration: underline;
 }
