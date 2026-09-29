@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content ="width=device-width ,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
+<title>Dashboard | Kenya Police Service OB System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-body">
+        <div class="dash-layout">
+            <!--sidebar-->
+            <aside class="sidebar"id="sidebar">
+                <div class="sidebar-brand">
+                    <span class="material-symbols-outlined brand-icon">shield</span>
+                </div>
+                <div class="brand-title">Kenya Police </div>
+                <div class="brand-subtitle">OB system</div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-label">Navigation</div>
+            <a href="dashboard.html" class="nav-item active">
+                <span class="material-symbol-outlined">dashboard</span>Dashboard
+            </a>
+            <a href="new-ob-entry.html" class="nav-item ">
+                <span class="material-symbol-outlined">post_add</span>New OB Entry
+            </a>
+            <a href="ob-entries.html" class="nav-item ">
+                <span class="material-symbol-outlined">menu_book</span>OB entries
+            </a>
+            <a href="public-portal.html" class="nav-item ">
+                <span class="material-symbol-outlined">public</span>Public Portal
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="officer-name"id="officerName">Loading...</div>
+            <div class="officer-meta"id="officerMeta">&nbsp</div>
+            <a href="#" id="signOutLink" class="signout-link">
+                <span class="material-symbols-outlined">logout</span> Sign Out
+            </a>
+        </div>
+    </div>
+</aside>
+    <!--Main content-->
+    <main class="dash-main">
+        <div class="dash-topbar">
+            <button id="sidebar Toggle" class="icon-btn" aria-label="Toggle sidebar">
+                <span class="material-symbols-outlined">left_panel_close</span>
+            </button>
+            <span class="dash-date"id="dashDate"></span>
+        </div>
+
+        <div class="dash-header">
+            <div>
+                <h1>Report Officer</h1>
+                <p class="dash-subtitle">Duty Officer: <strong id="dutyOfficer">—</strong> &bull; <span id="dutyRank">—</span></p>
+            </div>
+            <a href="new-ob-entry.html"class="btn-primary">
+                   <span class="material-symbols-outlined">add</span> New OB Entry
+            </a>
+        </div>
+             <section class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label"><span class="material-symbols-outlined">auto_stories</span> Open Entries Today</div>
+                    <div class="stat-value" id="statOpenToday">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label"><span class="material-symbols-outlined">description</span> Total Folios Used</div>
+                    <div class="stat-value" id="statTotalFolios">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label"><span class="material-symbols-outlined">error</span> Pending Actions</div>
+                    <div class="stat-value" id="statPendingActions">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label"><span class="material-symbols-outlined">schedule</span> Most Recent SRS</div>
+                    <div class="stat-value stat-value-accent" id="statMostRecentSrs">—</div>
+                </div>
+            </section>
+    </main> 
+            <section class="entries-panel">
+                <h2>Recent Entries</h2>
+                <div class="table-scroll">
+                    <table class="entries-table">
+                        <thead>
+                            <tr>
+                                <th>SRS No.</th>
+                                <th>Time</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="entriesBody">
+                            <tr><td colspan="5" class="empty-row">Loading entries...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+ 
+            <footer class="dash-footer">
+                Kenya Police Service &bull; Occurrence Book Management System &bull; All Rights Reserved
+            </footer>
+        </main>
+    </div>
+ 
+    <script src="dashboard.js"></script>
+
+</body>
+</html>
