@@ -56,3 +56,4 @@ if (loginForm) {
             });
     });
 }
+const sidebar=document.getElementById("sidebar");
