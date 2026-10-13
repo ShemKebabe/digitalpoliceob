@@ -292,7 +292,7 @@ background: rgba(0,0,0,0.5);
  
 .officer-meta {
     font-size: 12px;
-    color: #A9BDAA;
+    color: #0e0f0e;
     margin-bottom: 10px;
 }
  
@@ -349,7 +349,7 @@ background: rgba(0,0,0,0.5);
  
 .dash-subtitle {
     margin: 0;
-    color: #5C6B5E;
+    color: #080808;
     font-size: 14px;
 }
  
@@ -390,7 +390,7 @@ background: rgba(0,0,0,0.5);
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: #5C6B5E;
+    color: #0c0c0c;
     margin-bottom: 10px;
 }
  
@@ -434,7 +434,7 @@ background: rgba(0,0,0,0.5);
  
 .entries-table th {
     text-align: left;
-    color: #7E9480;
+    color: #0b0c0c;
     font-weight: 600;
     font-size: 12px;
     padding-bottom: 10px;
@@ -453,7 +453,7 @@ background: rgba(0,0,0,0.5);
  
 .tag {
     background: #EAF1EA;
-    color: #1F3D24;
+    color: #0c0e0c;
     padding: 3px 10px;
     border-radius: 12px;
     font-size: 12px;
@@ -478,18 +478,18 @@ background: rgba(0,0,0,0.5);
  
 .status-default {
     background: #EEE;
-    color: #555;
+    color: #070707;
 }
  
 .empty-row {
     text-align: center;
-    color: #7E9480;
+    color: #0f0f0f;
     padding: 24px 0;
 }
  
 .dash-footer {
     text-align: center;
-    color: #8A968B;
+    color: #101110;
     font-size: 13px;
     margin-top: 32px;
 }
