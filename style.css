@@ -194,6 +194,112 @@ background: rgba(0,0,0,0.5);
 .public-link:hover {
     text-decoration: underline;
 }
+@media (max-width: 768px) {
+    .login-container {
+        margin-top: 100px;
+        padding: 16px;
+    }
+ 
+    .login-card {
+        max-width: 400px;
+        padding: 26px 22px;
+    }
+}
+ 
+
+@media (max-width: 600px) {
+    .login-container {
+        margin-top: 60px;
+        padding: 12px;
+        align-items: flex-start;
+    }
+ 
+    .login-card {
+        max-width: 100%;
+        padding: 24px 18px;
+        border-radius: 10px;
+    }
+ 
+    .shield-logo {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+    }
+ 
+    .login-card h2 {
+        font-size: 20px;
+    }
+ 
+    .subtitle {
+        font-size: 13px;
+    }
+ 
+    .input-group label {
+        font-size: 12px;
+    }
+ 
+    .input-field input {
+        padding: 11px 12px 11px 42px;
+        font-size: 13px;
+    }
+ 
+    .login-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+ 
+
+@media (max-width: 380px) {
+    .login-container {
+        margin-top: 40px;
+        padding: 8px;
+    }
+ 
+    .login-card {
+        padding: 20px 14px;
+    }
+ 
+    .shield-logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 12px;
+    }
+ 
+    .login-card h2 {
+        font-size: 18px;
+    }
+ 
+    .auth-notice,
+    .public-link {
+        font-size: 11px;
+    }
+}
+ 
+@media (max-height: 500px) and (orientation: landscape) {
+    .login-container {
+        margin-top: 24px;
+        align-items: flex-start;
+    }
+ 
+    .brand-header {
+        margin-bottom: 16px;
+    }
+ 
+    .shield-logo {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 8px;
+    }
+}
+ 
+
+@media (prefers-reduced-motion: reduce) {
+    .input-field input,
+    .login-btn {
+        transition: none;
+    }
+}
 .dashboard-body {
     margin:0;
     background:#F4F5F3;
