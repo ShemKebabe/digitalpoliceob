@@ -4,123 +4,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
 <title>Kenya police seervice|report incident</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <link rel="stylesheet" href="incidentreport.css">
 </head>
 <body>
-<div class="reportheader">
 
-</div>
-<div class="navbarreport">
-<div class="navigationreport">
-  <div class="navreport">
-  <button  id="reportbutton">Report incident</button></div>
-   <div class="navreport"></div> <button id="trackbutton"> Track OB status</button></div>
-</div>
-
-</div>
-<div class="mainsection">
-  <div class="reportform">
-    <h3>Report an incident</h3>
-    <p>Fill in the details below. Fields marked * are required. Your report will be assigned a unique OB reference number.</p>
-    <form action="POST" action="">
-      <div class="input-group">
-        <span class="material-symbols-outlined">
-person
+<span class="material-symbols-outlined">
+local_police
 </span>
-        <input type="text" name="fName*" id="fName" placdeholder="e.gJohn Doe" required>
-        <label for="fName">Full Names*</label>
-      </div>
-       <div class="input-group">
-        <span class="material-symbols-outlined">
-person
-</span>
-        <input type="text" name="Id*" id="Id" placdeholder="e.g12345678" required>
-        <label for="Id">National ID/Passport*</label>
-      </div>
-       <div class="input-group">
-        <span class="material-symbols-outlined">
-person
-</span>
-        <input type="text" name="email*" id="email" placdeholder="e.gexample@gmail.com" required>
-        <label for="address">email*</label>
-      </div>
-       <div class="input-group">
-        <span class="material-symbols-outlined">
-person
-</span>
-        <input type="text" name="address*" id="address" placdeholder="e.gRongai" required>
-        <label for="address">Adress*</label>
-      </div>
-       <div class="input-group">
-        <span class="material-symbols-outlined">
-person
-</span>
-        <input type="datetime-local" name="incident_datetime*" id="incident_datetime" placdeholder="Enter the date and time" required>
-        <label for="incident_datetime">Dateand Time*</label>
-      </div>
-      <div class="input-group">
-        <label for="incident_type">Type of incident</label>
-        <select id="incident_type" name="incident_type">
-          <option value="">Select an incident</option>
-          <option value="Theft">Theft</option>
-          <option value="Assault">Assault</option>
-          <option value="TrafficAccident">TrafficAccident</option>
-          <option value="LostItem">LostItem</option>
-          <option value="GeneralInquiry">GeneralInquiry</option>
-          <option value="Robbery">Robbery</option>
-          <option value="Fraud">Fraud</option>
-          <option value="DomesticViolence">DomesticViolence</option>
-          <option value="MissingPerson">MissingPerson</option>
-          <option value="Vandalism">Vandalism</option>
-          <option value="Tresspass">Tresspass</option>
-        </select>
-        <div id="other_incident_container" hidden>
-    <label for="other_incident">Specify incident type</label>
-    <input type="text" id="other_incident"
-           name="other_incident">
-</div>
-      </div>
-        <div class="input-group">
-        <label for="incident_location">Location of incident</label>
-        <select id="incident_location" name="incident_location">
-          <option value="">Select a location</option>
-          <option value="Cleanshelf">Cleanshelf</option>
-          <option value="Galleria">Galleria</option>
-          <option value="Cemetery">Cemetery</option>
-          <option value="Ulinzicomplex">UlinziComplex</option>
-          <option value="NgeiEstate">NgeiEstate</option>
-         
-        </select>
-      
-</div>
-
-
-
-      </div>
-      <label for="incident_description">Description of Incident *</label>
-<textarea
-    id="incident_description"
-    name="incident_description"
-    rows="5"
-    placeholder="Describe what happened in detail — include date, time, people involved, and any other relevant information..."
-    required
-></textarea>
-<div class="submit_report">
-<button type="submit" class="submit-btn">
-    Submit Report
-</button>
-</div>
-
-    </form>
-  </div>
-</div>
-</span>
-<script src="script.js"></script>
 </body>
 </html>
