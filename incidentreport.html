@@ -1,19 +1,170 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
-<title>Kenya police seervice|report incident</title>
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-<link rel="stylesheet" href="incidentreport.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none';">
+  <title>Kenya Police Service | Report Incident</title>
+  <link rel="stylesheet" href="incident-report.css">
 </head>
 <body>
 
-<span class="material-symbols-outlined">
-local_police
-</span>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/></svg>
+      </div>
+      <h1><span class="at">@</span> Kenya Police Service</h1>
+      <p>Online Occurrence Book &mdash; Public Incident Reporting</p>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="Choose an action">
+      <button type="button" class="tab active" id="reportbutton" role="tab" aria-selected="true" aria-controls="panel-report">Report Incident</button>
+      <button type="button" class="tab" id="trackbutton" role="tab" aria-selected="false" aria-controls="panel-track">Track OB Status</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ===== REPORT PANEL ===== -->
+    <section class="card" id="panel-report" role="tabpanel" aria-labelledby="reportbutton">
+      <div class="card-head">
+        <h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg> Report an Incident</h2>
+        <p>Fill in the details below. Fields marked <b>*</b> are required. Your report will be assigned a unique OB reference number.</p>
+      </div>
+
+      <form id="reportForm" method="post" action="incident-report-save.php" novalidate>
+        <input type="hidden" name="csrf_token" id="csrf_token" value="">
+        <!-- honeypot: real people never see or fill this -->
+        <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+
+        <fieldset class="group">
+          <legend>Your Details</legend>
+          <div class="grid2">
+            <div class="field">
+              <label for="fName">Full Name <span class="req">*</span></label>
+              <input type="text" id="fName" name="full_name" placeholder="e.g. Jane Wambui" maxlength="100" autocomplete="name" required>
+              <small class="err" data-for="fName"></small>
+            </div>
+            <div class="field">
+              <label for="idNumber">National ID / Passport</label>
+              <input type="text" id="idNumber" name="id_number" placeholder="e.g. 12345678" maxlength="20" autocomplete="off">
+              <small class="err" data-for="idNumber"></small>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="e.g. jane@email.com" maxlength="120" autocomplete="email">
+              <small class="err" data-for="email"></small>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 0712345678" maxlength="16" autocomplete="tel" required>
+              <small class="err" data-for="phone"></small>
+            </div>
+          </div>
+          <div class="field">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="e.g. Ngei Estate, Langata, Nairobi" maxlength="150" autocomplete="street-address">
+          </div>
+        </fieldset>
+
+        <div class="grid2">
+          <div class="field">
+            <label for="incident_datetime">Date &amp; Time of Incident <span class="req">*</span></label>
+            <input type="datetime-local" id="incident_datetime" name="incident_datetime" required>
+            <small class="err" data-for="incident_datetime"></small>
+          </div>
+          <div class="field">
+            <label for="incident_location">Location of Incident <span class="req">*</span></label>
+            <select id="incident_location" name="incident_location" required>
+              <option value="">Select area</option>
+              <option>Cleanshelf</option>
+              <option>Galleria</option>
+              <option>Cemetery</option>
+              <option>Ulinzi Complex</option>
+              <option>Ngei Estate</option>
+              <option value="Other">Other (specify)</option>
+            </select>
+            <small class="err" data-for="incident_location"></small>
+          </div>
+        </div>
+        <div class="field" id="other_location_wrap" hidden>
+          <label for="other_location">Specify location <span class="req">*</span></label>
+          <input type="text" id="other_location" name="other_location" maxlength="100" placeholder="e.g. Along Langata Road near the roundabout">
+          <small class="err" data-for="other_location"></small>
+        </div>
+
+        <div class="field">
+          <label for="incident_type">Type of Incident <span class="req">*</span></label>
+          <select id="incident_type" name="incident_type" required>
+            <option value="">Select type</option>
+            <option>Theft</option>
+            <option>Assault</option>
+            <option>Traffic Accident</option>
+            <option>Lost Item</option>
+            <option>General Inquiry</option>
+            <option>Robbery</option>
+            <option>Fraud</option>
+            <option>Domestic Violence</option>
+            <option>Missing Person</option>
+            <option>Vandalism</option>
+            <option>Trespass</option>
+            <option value="Other">Other (specify)</option>
+          </select>
+          <small class="err" data-for="incident_type"></small>
+        </div>
+        <div class="field" id="other_incident_wrap" hidden>
+          <label for="other_incident">Specify incident type <span class="req">*</span></label>
+          <input type="text" id="other_incident" name="other_incident" maxlength="60">
+          <small class="err" data-for="other_incident"></small>
+        </div>
+
+        <div class="field">
+          <label for="incident_description">Description of Incident <span class="req">*</span></label>
+          <textarea id="incident_description" name="incident_description" rows="5" maxlength="2000"
+            placeholder="Describe what happened in detail — include date, time, people involved, and any other relevant information..." required></textarea>
+          <div class="counter"><small class="err" data-for="incident_description"></small><small id="descCount">0 / 2000</small></div>
+        </div>
+
+        <div class="notice" role="note">
+          For emergencies call <b>999</b> or <b>112</b> immediately. This form is not monitored in real time.
+        </div>
+
+        <div id="formMessage" class="message" role="alert" hidden></div>
+        <button type="submit" class="submit-btn" id="submitBtn">Submit Report</button>
+      </form>
+
+      <!-- success view -->
+      <div id="successBox" class="success" hidden>
+        <div class="tick" aria-hidden="true">&#10003;</div>
+        <h3>Report submitted</h3>
+        <p>Your OB reference number is:</p>
+        <div class="refbox"><code id="refNumber"></code><button type="button" class="ghost" id="copyRef">Copy</button></div>
+        <p class="hint">Keep this number safe. Use <b>Track OB Status</b> to check the progress of your report.</p>
+        <button type="button" class="submit-btn" id="newReport">Submit another report</button>
+      </div>
+    </section>
+
+    <!-- ===== TRACK PANEL ===== -->
+    <section class="card" id="panel-track" role="tabpanel" aria-labelledby="trackbutton" hidden>
+      <div class="card-head">
+        <h2><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Track Your OB Report</h2>
+        <p>Enter the OB reference number you received when you submitted your report.</p>
+      </div>
+      <form id="trackForm" class="track-row" novalidate>
+        <input type="text" id="track_ob_status" name="ref" placeholder="e.g. OB/2026/03/001" maxlength="20" autocomplete="off" aria-label="OB reference number" required>
+        <button type="submit" class="submit-btn small" id="ob_status_button">Search</button>
+      </form>
+      <div id="trackResult" class="track-result" hidden aria-live="polite"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>Kenya Police Service &bull; Occurrence Book Management System</span>
+    <a href="login.html">Officer Login &rarr;</a>
+  </footer>
+
+  <script src="incident-report.js"></script>
 </body>
 </html>
