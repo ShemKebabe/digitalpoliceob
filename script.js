@@ -130,10 +130,23 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
         window.location.href = 'login.html';
     });
 });
-/* incidence report*/
+/*incidence report*/
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
+
+  // fetch + parse JSON; explains the problem if the server sends back something else (PHP error, 404...)
+  function api(url, opts) {
+    return fetch(url, Object.assign({ credentials: 'same-origin' }, opts)).then(function (r) {
+      return r.text().then(function (t) {
+        try { return { ok: r.ok, d: JSON.parse(t) }; }
+        catch (e) { throw new Error('HTTP ' + r.status + ' from ' + url.split('?')[0] + ' (not JSON). Open it in the browser to see the PHP error.'); }
+      });
+    });
+  }
+  function getToken() {
+    return api('incident-report-save.php?token=1').then(function (res) { $('csrf_token').value = res.d.token || ''; });
+  }
 
   /* ---------- tabs ---------- */
   var tabs = { report: [$('reportbutton'), $('panel-report')], track: [$('trackbutton'), $('panel-track')] };
@@ -149,10 +162,7 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
   tabs.track[0].addEventListener('click', function () { showTab('track'); });
 
   /* ---------- CSRF token ---------- */
-  fetch('incident-report-save.php?token=1', { credentials: 'same-origin' })
-    .then(function (r) { return r.json(); })
-    .then(function (d) { $('csrf_token').value = d.token || ''; })
-    .catch(function () { /* handled on submit */ });
+  getToken().catch(function (e) { console.error(e.message); });
 
   /* ---------- form helpers ---------- */
   var form = $('reportForm');
@@ -211,8 +221,7 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
     e.preventDefault(); showMsg('');
     if (!validate()) return;
     var btn = $('submitBtn'); btn.disabled = true; btn.textContent = 'Submitting...';
-    fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+    api(form.action, { method: 'POST', body: new FormData(form) })
       .then(function (res) {
         if (res.ok && res.d.success) {
           $('refNumber').textContent = res.d.reference;
@@ -224,7 +233,7 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
           if (res.d.token) $('csrf_token').value = res.d.token;
         }
       })
-      .catch(function () { showMsg('Cannot reach the server. Check your connection and that Apache is running.'); })
+      .catch(function (e) { showMsg(e.message); })
       .finally(function () { btn.disabled = false; btn.textContent = 'Submit Report'; });
   });
 
@@ -232,7 +241,7 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
     form.reset(); resetDate(); $('descCount').textContent = '0 / 2000';
     ['incident_type', 'incident_location'].forEach(function (i) { $(i).dispatchEvent(new Event('change')); });
     $('successBox').hidden = true; form.hidden = false;
-    fetch('incident-report-save.php?token=1', { credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (d) { $('csrf_token').value = d.token; });
+    getToken();
   });
 
   $('copyRef').addEventListener('click', function () {
@@ -252,9 +261,9 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
     box.hidden = false; box.className = 'track-result';
     if (!/^OB\/\d{4}\/\d{2}\/\d{3,5}$/.test(ref)) { box.classList.add('notfound'); box.textContent = 'Enter the reference in the format OB/2026/03/001.'; return; }
     var btn = $('ob_status_button'); btn.disabled = true; box.textContent = 'Searching...';
-    fetch('incident-track.php?ref=' + encodeURIComponent(ref), { credentials: 'same-origin' })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
+    api('incident-track.php?ref=' + encodeURIComponent(ref))
+      .then(function (res) {
+        var d = res.d;
         if (!d.found) { box.classList.add('notfound'); box.textContent = d.message || 'No report found with that reference number.'; return; }
         box.innerHTML = '<h3>' + esc(d.reference) + '</h3><dl>' +
           '<dt>Status</dt><dd><span class="status ' + esc(d.status) + '">' + esc(LABELS[d.status] || d.status) + '</span></dd>' +
@@ -264,7 +273,7 @@ document.getElementById('signOutLink').addEventListener('click', function (e) {
           '<dt>Submitted</dt><dd>' + esc(d.submitted_at) + '</dd>' +
           (d.remarks ? '<dt>Station remarks</dt><dd>' + esc(d.remarks) + '</dd>' : '') + '</dl>';
       })
-      .catch(function () { box.classList.add('notfound'); box.textContent = 'Cannot reach the server. Please try again.'; })
+      .catch(function (e) { box.classList.add('notfound'); box.textContent = e.message; })
       .finally(function () { btn.disabled = false; });
   });
 })();
