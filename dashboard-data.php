@@ -1,46 +1,32 @@
 <?php
-session_start();
-header('Content-Type: application/json');
+require 'auth.php';
+date_default_timezone_set('Africa/Nairobi');
 
-// Guard: refuse if nobody is logged in
-if (empty($_SESSION['serviceNumber'])) {
-    http_response_code(401);
-    echo json_encode(['authenticated' => false, 'message' => 'Not logged in.']);
-    exit;
-}
+$officer = current_officer();
+if (!$officer) respond(['authenticated' => false, 'message' => 'Not logged in.'], 401);
 
-$serviceNumber = $_SESSION['serviceNumber'];
+$stats = $conn->query(
+    "SELECT COUNT(*) AS total,
+            SUM(status = 'Open' AND DATE(created_at) = CURDATE()) AS open_today,
+            SUM(status = 'Under Investigation') AS pending
+     FROM ob_entries"
+)->fetch_assoc();
 
-// TODO: replace with a real query once the officers/entries tables exist:
-//   $stmt = $pdo->prepare("SELECT full_name, rank FROM officers WHERE service_number = ?");
-$officerName = 'Sgt. James Mwangi';
-$officerRank = 'Sergeant';
+$entries = $conn->query(
+    "SELECT e.srs_number AS srs, DATE_FORMAT(e.created_at, '%H:%i') AS time,
+            t.type_name AS type, l.location_name AS location, e.status
+     FROM ob_entries e
+     LEFT JOIN incident_types t ON t.incident_type_id = e.incident_type_id
+     LEFT JOIN locations l      ON l.location_id = e.location_id
+     ORDER BY e.created_at DESC LIMIT 10"
+)->fetch_all(MYSQLI_ASSOC);
 
-// TODO: replace with SELECT ... FROM ob_entries ORDER BY created_at DESC
-$recentEntries = [
-    ['srs' => 'OB/2026/03/001', 'time' => '08:30', 'type' => 'Theft',     'location' => 'Central',  'status' => 'Open'],
-    ['srs' => 'OB/2026/03/002', 'time' => '10:15', 'type' => 'Lost Item', 'location' => 'Kilimani', 'status' => 'Open'],
-    ['srs' => 'OB/2026/03/003', 'time' => '22:45', 'type' => 'Assault',   'location' => 'Kasarani', 'status' => 'Under Investigation'],
-];
-
-$openToday      = count(array_filter($recentEntries, fn($e) => $e['status'] === 'Open'));
-$totalFolios    = count($recentEntries);
-$pendingActions = count(array_filter($recentEntries, fn($e) => $e['status'] === 'Under Investigation'));
-$mostRecentSrs  = $recentEntries[0]['srs'] ?? '—';
-
-echo json_encode([
+respond([
     'authenticated' => true,
-    'officer' => [
-        'name'          => $officerName,
-        'rank'          => $officerRank,
-        'serviceNumber' => $serviceNumber,
-    ],
-    'stats' => [
-        'openToday'      => $openToday,
-        'totalFolios'    => $totalFolios,
-        'pendingActions' => $pendingActions,
-        'mostRecentSrs'  => $mostRecentSrs,
-    ],
-    'entries' => $recentEntries,
+    'officer' => ['name' => $officer['full_name'], 'rank' => $officer['rank'],
+                  'serviceNumber' => $officer['ap_number'], 'role' => $officer['role']],
+    'stats' => ['openToday' => (int)$stats['open_today'], 'totalFolios' => (int)$stats['total'],
+                'pendingActions' => (int)$stats['pending'], 'mostRecentSrs' => $entries[0]['srs'] ?? '—'],
+    'entries' => $entries,
     'today'   => date('l, j F Y'),
 ]);

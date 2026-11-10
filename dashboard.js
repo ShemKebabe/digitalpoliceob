@@ -80,7 +80,7 @@ function loadDashboard() {
             document.getElementById('dutyOfficer').textContent = data.officer.name;
             document.getElementById('dutyRank').textContent = data.officer.rank;
             document.getElementById('dashDate').textContent = data.today;
-
+            document.querySelectorAll('[data-role]').forEach(e => e.hidden = e.dataset.role !== data.officer.role);
             document.getElementById('statOpenToday').textContent = data.stats.openToday;
             document.getElementById('statTotalFolios').textContent = data.stats.totalFolios;
             document.getElementById('statPendingActions').textContent = data.stats.pendingActions;
