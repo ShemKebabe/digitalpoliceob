@@ -20,7 +20,7 @@
   /* ---------- page chrome ---------- */
   $('dashDate').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('sidebarToggle').addEventListener('click', function () {
-    document.querySelector('.dash-layout').classList.toggle('nav-collapsed');
+    $('sidebar').classList.toggle('collapsed');
   });
   $('signOutLink').addEventListener('click', function (e) {
     e.preventDefault();

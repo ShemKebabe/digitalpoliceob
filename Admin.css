@@ -1,13 +1,7 @@
 /* Extras for admin.html. Everything else comes from style.css. */
 [hidden] { display: none !important; }
-.dash-layout.nav-collapsed .sidebar { 
-    display: none; }
 
-.two-col {
-     display: grid;
-      grid-template-columns:
-       1fr 1fr; gap: 24px;
-        margin-bottom: 24px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
 .two-col > .entries-panel { margin: 0; }
 
 .bar-row { display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 14px; padding: 6px 0; }
