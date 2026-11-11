@@ -300,6 +300,9 @@ background: rgba(0,0,0,0.5);
         transition: none;
     }
 }
+[hidden] {
+    display: none !important; 
+}
 .dashboard-body {
     margin:0;
     background:#F4F5F3;
