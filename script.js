@@ -5,9 +5,9 @@ const errorMessage   = document.getElementById('error-message');
 
 if (togglePassword && passwordInput) {
     togglePassword.addEventListener('click', function () {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+        const show = passwordInput.type === 'password';
+        passwordInput.type = show ? 'text' : 'password';
+        togglePassword.classList.toggle('is-visible', show);
     });
 }
 
