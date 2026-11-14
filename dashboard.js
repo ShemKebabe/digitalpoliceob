@@ -81,6 +81,7 @@ function loadDashboard() {
             document.getElementById('dutyRank').textContent = data.officer.rank;
             document.getElementById('dashDate').textContent = data.today;
             document.querySelectorAll('[data-role]').forEach(e => e.hidden = e.dataset.role !== data.officer.role);
+
             document.getElementById('statOpenToday').textContent = data.stats.openToday;
             document.getElementById('statTotalFolios').textContent = data.stats.totalFolios;
             document.getElementById('statPendingActions').textContent = data.stats.pendingActions;
@@ -103,7 +104,7 @@ if (retryBtn) {
 
 document.getElementById('signOutLink').addEventListener('click', function (e) {
     e.preventDefault();
-    fetch('logout.php').then(() => {
+    fetch('logout.php', { method: 'POST' }).then(() => {
         window.location.href = 'login.html';
     });
 });
