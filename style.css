@@ -679,3 +679,30 @@ background: rgba(0,0,0,0.5);
 .retry-btn:hover {
     background: #7E2222;
 }
+
+[hidden] { display: none !important; }
+
+/* OB Entries: search box and result count */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 450px;
+    margin-bottom: 16px;
+    padding: 0 14px;
+    background: #fff;
+    border: 1px solid #E4E8E3;
+    border-radius: 8px;
+}
+.search-box input {
+    flex: 1;
+    padding: 12px 0;
+    border: 0;
+    outline: 0;
+    background: none;
+    font: inherit;
+}
+.entries-count {
+    margin: 0 0 14px;
+    font-size: 14px;
+}
