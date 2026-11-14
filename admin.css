@@ -1,0 +1,24 @@
+/* Extras for admin.html. Everything else comes from style.css. */
+[hidden] { display: none !important; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.two-col > .entries-panel { margin: 0; }
+
+.bar-row { display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 14px; padding: 6px 0; }
+.bar { height: 8px; background: #eef1ef; border-radius: 99px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: #1f5a2a; }
+.count { text-align: center; font-weight: 600; background: #e8f0ea; border-radius: 6px; }
+
+.role { padding: 2px 10px; border-radius: 99px; font-size: 12px; background: #e8f0ea; }
+.role.admin { background: #fff3d6; }
+
+.audit { list-style: none; margin: 0; padding: 0; }
+.audit li { position: relative; padding: 12px 0 12px 20px; border-bottom: 1px solid #eee; }
+.audit li::before { content: ""; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; border-radius: 50%; background: #1f5a2a; }
+.audit small { display: block; font-size: 12px; color: #5b6660; }
+.muted { color: #5b6660; }
+
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; }
+  .bar-row { grid-template-columns: 110px 1fr 36px; }
+}
