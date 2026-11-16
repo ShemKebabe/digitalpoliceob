@@ -1,7 +1,6 @@
-CREATE DATABASE IF NOT EXISTS digital_police_ob CHARACTER SET utf8mb4;
+CREATE DATABASE  digital_police_ob CHARACTER SET utf8mb4;
 USE digital_police_ob;
 
-DROP TABLE IF EXISTS ob_amendments, ob_actions, ob_entries, audit_log, public_reports, incident_types, locations, officers;
 
 CREATE TABLE officers (
   officer_id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
