@@ -3,4 +3,5 @@
 require 'auth.php';
 
 $o = require_role();
-respond(['name' => $o['full_name'], 'rank' => $o['rank'], 'ap' => $o['ap_number'], 'role' => $o['role']]);
+respond(['id' => (int)$o['officer_id'], 'name' => $o['full_name'], 'rank' => $o['rank'], 'ap' => $o['ap_number'], 'role' => $o['role'],
+         'mustChange' => (bool)$o['must_change_password'], 'csrf' => csrf_token()]);

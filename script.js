@@ -42,7 +42,7 @@ if (loginForm) {
                     errorMessage.style.color = 'green';
                     errorMessage.textContent = 'Login successful, redirecting to dashboard...';
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = data.mustChange ? 'change-password.html' : 'dashboard.html';
                     }, 1000);
                 } else {
                     errorMessage.style.color = 'red';

@@ -11,7 +11,7 @@ $number   = substr(trim($_POST['serviceNumber'] ?? ''), 0, 20);
 $password = $_POST['password'] ?? '';
 if ($number === '' || $password === '') respond(['success' => false, 'message' => 'Please enter both your Service Number and password.'], 422);
 
-$stmt = $conn->prepare("SELECT officer_id, password_hash, locked_until FROM officers WHERE service_number = ? AND status = 'active'");
+$stmt = $conn->prepare("SELECT officer_id, password_hash, locked_until, must_change_password FROM officers WHERE service_number = ? AND status = 'active'");
 $stmt->execute([$number]);
 $officer = $stmt->get_result()->fetch_assoc();
 
@@ -37,4 +37,4 @@ $_SESSION['officer_id']    = $officer['officer_id'];
 $_SESSION['serviceNumber'] = $number;
 $_SESSION['last_seen']     = time();
 audit($officer['officer_id'], 'LOGIN', 'Officer logged in');
-respond(['success' => true]);
+respond(['success' => true, 'mustChange' => (bool)$officer['must_change_password']]);

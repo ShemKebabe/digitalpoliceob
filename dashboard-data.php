@@ -2,8 +2,7 @@
 require 'auth.php';
 date_default_timezone_set('Africa/Nairobi');
 
-$officer = current_officer();
-if (!$officer) respond(['authenticated' => false, 'message' => 'Not logged in.'], 401);
+$officer = require_role();
 
 $stats = $conn->query(
     "SELECT COUNT(*) AS total,
@@ -23,10 +22,18 @@ $entries = $conn->query(
 
 respond([
     'authenticated' => true,
-    'officer' => ['name' => $officer['full_name'], 'rank' => $officer['rank'],
-                  'serviceNumber' => $officer['ap_number'], 'role' => $officer['role']],
-    'stats' => ['openToday' => (int)$stats['open_today'], 'totalFolios' => (int)$stats['total'],
-                'pendingActions' => (int)$stats['pending'], 'mostRecentSrs' => $entries[0]['srs'] ?? '—'],
+    'officer' => [
+        'name'          => $officer['full_name'],
+        'rank'          => $officer['rank'],
+        'serviceNumber' => $officer['ap_number'],
+        'role'          => $officer['role'],
+    ],
+    'stats' => [
+        'openToday'      => (int)$stats['open_today'],
+        'totalFolios'    => (int)$stats['total'],
+        'pendingActions' => (int)$stats['pending'],
+        'mostRecentSrs'  => $entries[0]['srs'] ?? '—',
+    ],
     'entries' => $entries,
     'today'   => date('l, j F Y'),
 ]);

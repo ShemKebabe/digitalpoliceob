@@ -1,6 +1,6 @@
-CREATE DATABASE  digital_police_ob CHARACTER SET utf8mb4;
+DROP DATABASE IF EXISTS digital_police_ob;
+CREATE DATABASE digital_police_ob CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE digital_police_ob;
-
 
 CREATE TABLE officers (
   officer_id     INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -10,7 +10,10 @@ CREATE TABLE officers (
   role           ENUM('officer','admin')    NOT NULL DEFAULT 'officer',
   password_hash  VARCHAR(255) NOT NULL,
   status         ENUM('active','inactive')  NOT NULL DEFAULT 'active',
-  created_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  failed_logins  TINYINT UNSIGNED NOT NULL DEFAULT 0,   -- lockout counter (OWASP A07); not on the ERD
+  locked_until   DATETIME     NULL,
+  must_change_password TINYINT(1) NOT NULL DEFAULT 0   -- 1 after an admin creates/resets the account
 );
 
 CREATE TABLE incident_types (
@@ -37,9 +40,10 @@ CREATE TABLE ob_entries (
   complainant_id_no VARCHAR(20)  NULL,
   complainant_phone VARCHAR(16)  NULL,
   narrative         TEXT         NOT NULL,
-  status            VARCHAR(30)  NOT NULL DEFAULT 'Open',
+  status            ENUM('Open','Under Investigation','Closed') NOT NULL DEFAULT 'Open',
   is_amended        TINYINT(1)   NOT NULL DEFAULT 0,
   created_at        TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_entry_datetime (entry_datetime),
   FOREIGN KEY (incident_type_id) REFERENCES incident_types (incident_type_id),
   FOREIGN KEY (location_id)      REFERENCES locations (location_id),
   FOREIGN KEY (recorded_by)      REFERENCES officers (officer_id)

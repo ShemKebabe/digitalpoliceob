@@ -24,7 +24,7 @@
   });
   $('signOutLink').addEventListener('click', function (e) {
     e.preventDefault();
-    fetch('logout.php', { credentials: 'same-origin' }).finally(function () { location.href = 'login.html'; });
+    fetch('logout.php', { method: 'POST', credentials: 'same-origin' }).finally(function () { location.href = 'login.html'; });
   });
 
   /* ---------- renderers ---------- */
@@ -46,7 +46,7 @@
       var tr = el('tr'), role = el('td');
       role.append(el('span', 'role ' + o.role, o.role));
       var ap = el('td'); ap.append(el('code', null, o.ap_number));
-      tr.append(ap, el('td', null, o.full_name), el('td', null, o.rank), el('td', null, o.station), role);
+      tr.append(ap, el('td', null, o.full_name), el('td', null, o.rank), el('td', null, o.status), role);
       return tr;
     });
   }

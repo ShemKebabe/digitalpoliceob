@@ -37,7 +37,7 @@
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
                     Administration
                 </a>
-                <a href="ob-entries.html" class="nav-item">
+                <a href="incident-report.html" class="nav-item">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
                     Public Portal
                 </a>
@@ -46,6 +46,7 @@
         <div class="sidebar-footer">
                 <div class="officer-name" id="officerName">Loading...</div>
                 <div class="officer-meta" id="officerMeta">&nbsp;</div>
+                <a href="change-password.html" class="signout-link">Change password</a>
                 <a href="#" id="signOutLink" class="signout-link">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
                     Sign Out
@@ -78,10 +79,10 @@
         </section>
 
         <section class="entries-panel">
-            <h2>Police Officer Accounts</h2>
+            <h2>Police Officer Accounts <a href="admin-officers.html" class="btn-primary btn-inline">Manage officers</a></h2>
             <div class="table-scroll">
                 <table class="entries-table">
-                    <thead><tr><th>AP Number</th><th>Name</th><th>Rank</th><th>Station</th><th>Role</th></tr></thead>
+                    <thead><tr><th>AP Number</th><th>Name</th><th>Rank</th><th>Status</th><th>Role</th></tr></thead>
                     <tbody id="officersBody"><tr><td colspan="5" class="empty-row">Loading officers...</td></tr></tbody>
                 </table>
             </div>
