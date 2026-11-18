@@ -37,3 +37,23 @@ dialog input, dialog select { display: block; width: 100%; margin-top: 4px; padd
 .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
 .btn-secondary { background: #fff; border: 1px solid #c9d1cc; border-radius: 6px; padding: 8px 16px; cursor: pointer; }
 .form-error { color: #a12b2b; font-size: 14px; }
+
+/* New OB entry form */
+.entry-card { background: #fff; border: 1px solid #e3e8e5; border-radius: 12px; padding: 24px; max-width: 820px; margin: 0 auto 24px; }
+.entry-card label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 18px; }
+.entry-card input, .entry-card select, .entry-card textarea { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid #e3e8e5; border-radius: 6px; background: #f4f5f4; font: inherit; box-sizing: border-box; }
+.entry-card textarea { resize: vertical; }
+.entry-card :is(input, select, textarea):focus { outline: 2px solid #1f5a2a; background: #fff; }
+.srs-box { text-align: center; background: #f4f5f4; border: 1px solid #e3e8e5; border-radius: 8px; padding: 18px; margin-bottom: 22px; }
+.srs-box span { display: block; font-size: 12px; letter-spacing: .05em; color: #5b6660; }
+.srs-box strong { font-family: monospace; font-size: 24px; color: #1f5a2a; }
+.form-row { display: grid; gap: 18px; }
+.form-row.two { grid-template-columns: 1fr 1fr; }
+.form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+.complainant { border: 1px solid #e3e8e5; border-radius: 8px; padding: 16px 18px 0; margin: 0 0 18px; }
+.complainant legend { font-weight: 600; padding: 0 6px; }
+.officer-box { background: #f4f5f4; border-radius: 8px; padding: 12px 16px; margin-bottom: 18px; }
+.officer-box span { display: block; font-size: 12px; color: #5b6660; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.form-actions .btn-secondary { text-decoration: none; display: inline-block; }
+@media (max-width: 700px) { .form-row.two, .form-row.three { grid-template-columns: 1fr; } }
