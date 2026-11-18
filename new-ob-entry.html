@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self';">
-    <title>Kenya Police Service | Dashboard</title>
+    <title>Kenya Police Service | New OB Entry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body class="dashboard-body">
     <div class="dash-layout">
@@ -21,11 +23,11 @@
         
         <nav class="sidebar-nav">
             <div class="nav-label">Navigation</div>
-                 <a href="dashboard.html" class="nav-item active">
+                 <a href="dashboard.html" class="nav-item">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
                     Dashboard
                 </a>
-                <a href="new-ob-entry.html" class="nav-item">
+                <a href="new-ob-entry.html" class="nav-item active">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6"/><path d="M12 12v6M9 15h6"/></svg>
                     New OB Entry
                 </a>
@@ -33,7 +35,12 @@
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
                     OB Entries
                 </a>
-                <a href="public-portal.html" class="nav-item">
+                <div class="nav-label" data-role="admin" hidden>Admin</div>
+                <a href="admin.html" class="nav-item" data-role="admin" hidden>
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+                    Administration
+                </a>
+                <a href="incident-report.html" class="nav-item">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
                     Public Portal
                 </a>
@@ -41,6 +48,7 @@
             <div class="sidebar-footer">
                 <div class="officer-name" id="officerName">Loading...</div>
                 <div class="officer-meta" id="officerMeta">&nbsp;</div>
+                <a href="change-password.html" class="signout-link">Change password</a>
                 <a href="#" id="signOutLink" class="signout-link">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
                     Sign Out
@@ -50,20 +58,45 @@
         <main class="dash-main">
             <div class="dash-topbar">
                 <button id="sidebarToggle" class="icon-btn" aria-label="Toggle sidebar">
-                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
                 </button>
-                 <span class="dash-date" id="dashDate"></span>
+                <span class="dash-date" id="dashDate"></span>
             </div>
-            <div class="dash-header">
-            <div>
-               
+            <div class="dash-header"><h1><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6"/></svg> New OB Entry &mdash; Digital Folio</h1></div>
 
-            <footer class="dash-footer">
-                Kenya Police Service &bull; Occurrence Book Management System &bull; All Rights Reserved
-            </footer>
+            <form id="entryForm" class="entry-card" autocomplete="off" novalidate>
+                <div class="srs-box"><span>SRS NO. / OB NUMBER</span><strong id="srsPreview">&mdash;</strong></div>
+
+                <div class="form-row two">
+                    <label>Date &amp; Time of Occurrence *<input type="datetime-local" id="when" required></label>
+                    <label>Place of Occurrence *<select id="location" required><option value="">Select location</option></select></label>
+                </div>
+
+                <fieldset class="complainant">
+                    <legend>Complainant Details</legend>
+                    <div class="form-row three">
+                        <label>Full Name *<input id="cname" maxlength="100" placeholder="e.g. John Kamau" required></label>
+                        <label>ID Number<input id="cid" maxlength="20" placeholder="e.g. 12345678" inputmode="numeric"></label>
+                        <label>Contact<input id="cphone" maxlength="16" placeholder="e.g. 0712345678" inputmode="tel"></label>
+                    </div>
+                </fieldset>
+
+                <label>Type of Offence / Incident *<select id="type" required><option value="">Select incident type</option></select></label>
+                <label>Narrative / &ldquo;The Facts&rdquo; *<textarea id="narrative" rows="6" maxlength="5000" placeholder="Enter the detailed report of the occurrence..." required></textarea></label>
+
+                <div class="officer-box"><span>Reporting Officer</span><strong id="reporter">Loading...</strong></div>
+
+                <p id="formMsg" class="form-error" role="alert" hidden></p>
+                <div class="form-actions">
+                    <a href="ob-entries.html" class="btn-secondary">Cancel</a>
+                    <button type="submit" class="btn-primary" id="saveBtn">Save Entry</button>
+                </div>
+            </form>
+
+            <footer class="dash-footer">Kenya Police Service &bull; Occurrence Book Management System &bull; All Rights Reserved</footer>
         </main>
     </div>
-
+    <script src="nav.js"></script>
     <script src="new-ob-entry.js"></script>
 </body>
 </html>
