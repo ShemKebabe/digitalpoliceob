@@ -59,28 +59,55 @@ if ($errors) {
     respond(['message' => 'Please correct the highlighted fields.', 'errors' => $errors], 422);
 }
 
-// Next reference number (OB/YYYY/MM/###). The UNIQUE key on reference_number makes a
-// simultaneous duplicate fail with error 1062, so we simply retry with the next number.
-$prefix = date('OB/Y/m/');
-$stmt = $conn->prepare(
-    'INSERT INTO public_reports (reference_number, full_name, id_number, email, phone, address,
-                                 incident_datetime, location, incident_type, description, ip_address)
-     VALUES (?,?,?,?,?,?,?,?,?,?,?)'
-);
+// One OB number series for officers and the public: the next number is the highest used in either table.
+// The UNIQUE keys make a simultaneous duplicate fail with error 1062, so we roll back and retry.
+function lookup_id(string $table, string $idCol, string $nameCol, string $name): int
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT $idCol FROM $table WHERE $nameCol = ?");
+    $stmt->execute([$name]);
+    return (int)($stmt->get_result()->fetch_row()[0] ?? 0);
+}
+
+$otherLocation = $_POST['incident_location'] === 'Other';
+$otherType     = $_POST['incident_type'] === 'Other';
+$locationId = lookup_id('locations', 'location_id', 'location_name', $otherLocation ? 'Other' : $in['incident_location']);
+$typeId     = lookup_id('incident_types', 'incident_type_id', 'type_name', $otherType ? 'Other' : $in['incident_type']);
+if (!$locationId || !$typeId) respond(['message' => 'Please choose a location and incident type from the lists.'], 422);
+
+$narrative = '[Online public report] ' . $in['incident_description']
+           . ($otherLocation ? "\nLocation (as stated): {$in['incident_location']}" : '')
+           . ($otherType     ? "\nIncident type (as stated): {$in['incident_type']}" : '');
+
+$prefix = date('\O\B/Y/m/');
 for ($try = 0; $try < 3; $try++) {
-    $last = $conn->query("SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(reference_number, '/', -1) AS UNSIGNED)), 0)
-                          FROM public_reports WHERE reference_number LIKE '$prefix%'")->fetch_row()[0];
+    $last = $conn->query("SELECT COALESCE(MAX(n), 0) FROM (
+                            SELECT CAST(SUBSTRING_INDEX(srs_number, '/', -1) AS UNSIGNED) AS n FROM ob_entries WHERE srs_number LIKE '$prefix%'
+                            UNION ALL
+                            SELECT CAST(SUBSTRING_INDEX(reference_number, '/', -1) AS UNSIGNED) FROM public_reports WHERE reference_number LIKE '$prefix%'
+                          ) t")->fetch_row()[0];
     $ref = sprintf('%s%03d', $prefix, $last + 1);
+    $when_sql = $when->format('Y-m-d H:i:s');
     try {
-        $stmt->execute([
-            $ref, $in['full_name'], $in['id_number'] ?: null, $in['email'] ?: null, $in['phone'],
-            $in['address'] ?: null, $when->format('Y-m-d H:i:s'), $in['incident_location'],
-            $in['incident_type'], $in['incident_description'], $_SERVER['REMOTE_ADDR'] ?? null,
-        ]);
+        $conn->begin_transaction();
+        // The entry that officers see in OB Entries (recorded_by stays NULL: nobody on the force wrote it).
+        $conn->prepare('INSERT INTO ob_entries (srs_number, entry_datetime, incident_type_id, location_id, recorded_by,
+                                                complainant_name, complainant_id_no, complainant_phone, narrative)
+                        VALUES (?, ?, ?, ?, NULL, ?, ?, ?, ?)')
+             ->execute([$ref, $when_sql, $typeId, $locationId, $in['full_name'], $in['id_number'] ?: null, $in['phone'], $narrative]);
+        // The citizen's private copy: contact details stay here, never on the public tracking page.
+        $conn->prepare('INSERT INTO public_reports (reference_number, full_name, id_number, email, phone, address,
+                                                    incident_datetime, location, incident_type, description, ip_address)
+                        VALUES (?,?,?,?,?,?,?,?,?,?,?)')
+             ->execute([$ref, $in['full_name'], $in['id_number'] ?: null, $in['email'] ?: null, $in['phone'],
+                        $in['address'] ?: null, $when_sql, $in['incident_location'], $in['incident_type'],
+                        $in['incident_description'], $_SERVER['REMOTE_ADDR'] ?? null]);
+        $conn->commit();
         $_SESSION['sent'][] = time();
         newToken();                                   // one token per submission
         respond(['success' => true, 'reference' => $ref]);
     } catch (mysqli_sql_exception $e) {
+        $conn->rollback();
         if ($e->getCode() !== 1062) throw $e;        // only retry on duplicate reference
     }
 }

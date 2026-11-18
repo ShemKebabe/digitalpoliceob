@@ -15,8 +15,9 @@ if (!preg_match('#^OB/\d{4}/\d{2}/\d{3,5}$#', $ref)) {
 }
 
 $stmt = $conn->prepare(
-    'SELECT reference_number, status, incident_type, location, incident_datetime, created_at, remarks
-     FROM public_reports WHERE reference_number = ?'
+    'SELECT p.reference_number, e.status AS ob_status, p.incident_type, p.location, p.incident_datetime, p.created_at, p.remarks
+     FROM public_reports p LEFT JOIN ob_entries e ON e.srs_number = p.reference_number
+     WHERE p.reference_number = ?'
 );
 $stmt->execute([$ref]);
 $r = $stmt->get_result()->fetch_assoc();
@@ -29,7 +30,7 @@ if (!$r) {
 respond([
     'found'             => true,
     'reference'         => $r['reference_number'],
-    'status'            => $r['status'],
+    'status'            => ['Under Investigation' => 'in_progress', 'Closed' => 'closed'][$r['ob_status']] ?? 'received',
     'incident_type'     => $r['incident_type'],
     'location'          => $r['location'],
     'incident_datetime' => date('d M Y, H:i', strtotime($r['incident_datetime'])),
