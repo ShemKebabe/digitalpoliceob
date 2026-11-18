@@ -50,6 +50,15 @@
   toggleOther('incident_type', 'other_incident_wrap', 'other_incident');
   toggleOther('incident_location', 'other_location_wrap', 'other_location');
 
+  // Locations and incident types come from the same database tables officers use.
+  fetch('incident-lookups.php').then(function (r) { return r.json(); }).then(function (d) {
+    [['incident_location', d.locations], ['incident_type', d.types]].forEach(function (p) {
+      p[1].forEach(function (name) {
+        var o = document.createElement('option'); o.value = name; o.textContent = name === 'Other' ? 'Other (not listed)' : name; $(p[0]).appendChild(o);
+      });
+    });
+  }).catch(function () { /* the server still validates; the lists stay empty */ });
+
   var desc = $('incident_description');
   desc.addEventListener('input', function () { $('descCount').textContent = desc.value.length + ' / 2000'; });
 

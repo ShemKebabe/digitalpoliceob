@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; form-action 'self';">
   <title>Kenya Police Service | Report Incident</title>
   <link rel="stylesheet" href="incident-report.css">
 </head>
@@ -78,19 +78,13 @@
             <label for="incident_location">Location of Incident <span class="req">*</span></label>
             <select id="incident_location" name="incident_location" required>
               <option value="">Select area</option>
-              <option>Cleanshelf</option>
-              <option>Galleria</option>
-              <option>Cemetery</option>
-              <option>Ulinzi Complex</option>
-              <option>Ngei Estate</option>
-              <option value="Other">Other (specify)</option>
             </select>
             <small class="err" data-for="incident_location"></small>
           </div>
         </div>
         <div class="field" id="other_location_wrap" hidden>
-          <label for="other_location">Specify location <span class="req">*</span></label>
-          <input type="text" id="other_location" name="other_location" maxlength="100" placeholder="e.g. Along Langata Road near the roundabout">
+          <label for="other_location">Describe the place <span class="req">*</span></label>
+          <input type="text" id="other_location" name="other_location" maxlength="100" placeholder="Nearest landmark or road, e.g. Along Langata Road near the roundabout">
           <small class="err" data-for="other_location"></small>
         </div>
 
@@ -98,18 +92,6 @@
           <label for="incident_type">Type of Incident <span class="req">*</span></label>
           <select id="incident_type" name="incident_type" required>
             <option value="">Select type</option>
-            <option>Theft</option>
-            <option>Assault</option>
-            <option>Traffic Accident</option>
-            <option>Lost Item</option>
-            <option>General Inquiry</option>
-            <option>Robbery</option>
-            <option>Fraud</option>
-            <option>Domestic Violence</option>
-            <option>Missing Person</option>
-            <option>Vandalism</option>
-            <option>Trespass</option>
-            <option value="Other">Other (specify)</option>
           </select>
           <small class="err" data-for="incident_type"></small>
         </div>
